@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 ml-3">
+    <h1 class="h3 mb-0 text-gray-800">{{title}}</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="./">Home</a></li>
+        <li class="breadcrumb-item">Forms</li>
+        <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
+    </ol>
+    </div>
+
+    {% comment %} <div class="container"> {% endcomment %}
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">{{title}}</h6>
+                </div>
+                <div class="card-body">
+                    <form action="" method="post" enctype="multipart/form-data" autocomplete="off">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group mr-4 ml-4">
+                                    <label> {{form.cve_name.label_tag}}<span class="text-danger"> * {{form.cve_name.errors}}</span></label>
+                                    {{form.cve_name}}
+                                    {% comment %} <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                    email with anyone else.</small> {% endcomment %}
+                                </div>
+                            </div>
+                                                
+                        </div>
+                         
+                        <button type="submit" class="btn btn-primary mr-4 ml-4">Scan</button>
+                    </form>
+                </div>
+            </div>
+        </div>  
+
+    <!-- Modal Logout -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                <a href="login.html" class="btn btn-primary">Logout</a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+ 
+  
+{% endblock %}
+
+
+
+
+
+

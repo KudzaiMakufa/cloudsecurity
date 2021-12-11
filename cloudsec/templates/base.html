@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="{% static "img/logo/logo.png" %}" rel="icon">
+  <title>Cloud Sec</title>
+  <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
+  <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+  <link href="{% static "vendor/datatables/dataTables.bootstrap4.min.css" %}" rel="stylesheet" type="text/css">  
+  <link href="{% static "css/ruang-admin.min.css" %}" rel="stylesheet">
+  {{ form.media.css }}
+
+  {% block header %}
+
+  {% endblock %}
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon">
+          <img src="{% static "img/logo/logo2.png" %}"%>
+        </div>
+        <div class="sidebar-brand-text mx-3">CloudSec</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-10x fa-home"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        {% comment %} Features {% endcomment %}
+      </div>
+      <li class="nav-item">
+        <a class="nav-link expanded" href="#" data-toggle="collapse" data-target="#collapseReception"
+          aria-expanded="true" aria-controls="collapseReception">
+          <i class="fas fa-fw fa-10x fa-desktop"></i>
+          <span>Options</span>
+        </a>
+        <div id="collapseReception" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            {% comment %} <h6 class="collapse-header">Bootstrap UI</h6> {% endcomment %}
+            <a class="collapse-item" href="{% url 'dashboard:libraries' %}">All Libraries</a>
+            <a class="collapse-item" href="{% url 'dashboard:index' %}">Add Library</a>
+         
+            <a class="collapse-item" href="{% url 'dashboard:cve_scan' %}"> Scan By CVE</a>
+            
+           
+          </div>
+        </div>
+      </li>
+      
+      <hr class="sidebar-divider">
+      <div class="version" id="version-ruangadmin"></div>
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+          <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+          <ul class="navbar-nav ml-auto">
+           
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle" src="{% static "img/boy.png" %}" style="max-width: 60px">
+                <span class="ml-2 d-none d-lg-inline text-white small">{{request.user}}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'home:logout' %}">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- Topbar -->
+
+        <!-- Container Fluid-->
+            <div class="d-flex justify-content-center">
+
+            {% if messages %}
+
+                <ul class="messages justify-content-left">
+                    <br><br><br>
+                    {% for message in messages %}
+                            {% if message.tags == 'info' %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>{{ message.tags }}</strong>  {{ message }}.
+                                </div>
+                            {% endif %}
+                            {% if message.tags == 'warning' %}
+
+                                <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>{{ message.tags }}</strong>{{ message }}
+                                </div>
+                            {% endif %}
+                            {% if message.tags == 'error' %}
+                                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>{{ message.tags }}</strong>{{ message }}
+                                </div>
+                            {% endif %}
+                            <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message.tags }}</li> -->
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+        {% block content %}
+
+
+        {% endblock %}
+        <!---Container Fluid-->
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span> &copy; <script> document.write(new Date().getFullYear()); </script> 
+              <b><a href="" target="_blank"></a></b>
+            </span>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer -->
+    </div>
+  </div>
+
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  {% block footer %}
+
+  {% endblock %}
+
+  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+  <script src="{% static "js/ruang-admin.min.js" %}"></script>
+  <script src="{% static "vendor/chart.js/Chart.min.js" %}"></script>
+  <script src="{% static "js/demo/chart-area-demo.js" %}"></script>
+  {{ form.media.js }}
+</body>
+
+</html>
