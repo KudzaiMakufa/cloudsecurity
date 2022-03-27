@@ -137,7 +137,7 @@ def query_db(request ,lib_id=None):
 
         if(library[0].data_mode == 'application'):
             url_path = "cloudsec/app_cloudsec.html"
-
+            
             try:
                 try:
                     vulners_api = vulners.Vulners(api_key="4QIYDKA0NXPHUWXJNQYLISIZEZZH8FM25YNK0L518VOWJJEOWO81XGMH2KSL81KJ")
@@ -202,7 +202,7 @@ def delete_librabry(request ,librabry_id=None):
     library = Library.objects.get(pk=librabry_id)
     library.delete()
     messages.add_message(request, messages.INFO, 'Library deleted')
-    return HttpResponseRedirect('/cloudsec/libraries')
+    return HttpResponseRedirect('/cloudsec/files')
 
 
 @login_required

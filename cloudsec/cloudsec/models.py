@@ -4,7 +4,7 @@ from django.db import models
 class Library(models.Model):
     STATUS = (
         ('', '------------'),
-        ('application', 'Requirements File'),
+        ('application', 'Deployment File'),
         # ('services', 'KB LIST File'),
  
         
